@@ -112,11 +112,6 @@ runs:
         msbuild /m ALL_BUILD.vcxproj /p:Configuration=Debug
         msbuild /m INSTALL.vcxproj /p:Configuration=Debug
 
-    - name: libMVRGdtf [MD_NO_MZ] - compile Debug rename lib
-      working-directory: libMvrGdtf
-      shell: cmd
-      run: ren "libs\Debug\MvrGdtf_NO_MZ-MD.lib" "MvrGdtf_NO_MZ-MDd.lib"
-
     # libMVRGdtf - build MinSizeRel
     - name: libMVRGdtf [MD_NO_MZ] - MinSizeRel - add lib dependencies
       working-directory: libMvrGdtf/build_MD_NO_MZ
