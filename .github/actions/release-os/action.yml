@@ -1,0 +1,34 @@
+name: Release OS package
+description: Release the package for a particular OS
+runs:
+  using: "composite"
+  steps:
+    - name: Mock github user
+      shell: bash
+      run: |
+        git config --global user.email "simorolev@gmail.com"
+        git config --global user.name "Simeon Rolev"
+
+    - name: Add .npmrc
+      shell: bash
+      run: |
+        echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+        echo "@mvrdevelopment:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Release OS pacakge
+      shell: bash
+      working-directory: libMvrGdtf
+      run: |
+        export OS=$(node -p process.platform)
+        git checkout -b release/$OS
+        git fetch --tags
+        node scripts/json-updater.js --name @mvrdevelopment/lib-gdtf-$OS --os $OS --files "output"
+        git add .
+        git commit -m "Prepare OS package.json"
+
+        npm install
+        npm publish --dry-run

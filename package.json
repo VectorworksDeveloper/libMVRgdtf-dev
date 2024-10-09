@@ -2,7 +2,7 @@
     "version": "9.0.11",
     "name": "@mvrdevelopment/lib-mvr-gdtf",
     "files": [
-        "output"
+        "main.js"
     ],
     "author": "mvrdevelopment",
     "publishConfig": {
@@ -13,7 +13,8 @@
     },
     "private": false,
     "scripts": {
-      "release": "auto shipit --base-branch=master"
+      "release": "auto shipit --base-branch=master",
+      "postinstall": "bash ./install.sh"
     },
     "devDependencies": {
         "auto": "^11.2.1"
